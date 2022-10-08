@@ -26,7 +26,8 @@ class HomeController extends Controller
     public function index()
     {   
         $list=county_list();
-        return view('home',compact('list'));
+        $listCountry=getCountry();
+        return view('home',compact('list','listCountry'));
     }
     /**
      * List the cities

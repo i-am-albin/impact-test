@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $list=county_list();
     $listCountry=getCountry();
-    return view('home',compact(['list','listCountry']));
+    return view('home',compact('list','listCountry'));
 });
 
 Auth::routes();
