@@ -25,7 +25,7 @@ class HomeController extends Controller
 
     public function index()
     {   
-        $list=country_list();
+        $list=county_list();
         return view('home',compact('list'));
     }
     /**
@@ -37,7 +37,7 @@ class HomeController extends Controller
     public function getCities(Request $request)
     {
         $input = $request->all();
-        $list=country_list();
+        $list=county_list();
         return response($list[$input['county']]);
 
     }
@@ -62,5 +62,23 @@ class HomeController extends Controller
             'data' => $json
         ]);              
         
-    }        
+    } 
+
+    public function getWeatherAll(Request $request)
+    {
+
+        $input = $request->all();
+
+        $country = $input['country'];
+        $url='http://api.weatherapi.com/v1/current.json?key=377efb99cfd94b44a0b121421220810&q='.$country.'&aqi=no';
+        $json    = file_get_contents( $url );
+        $json    = json_decode($json);
+        return response()->json([
+            'status' => 'success',
+            'data' => $json
+        ]);              
+        
+    }     
+
+
 }

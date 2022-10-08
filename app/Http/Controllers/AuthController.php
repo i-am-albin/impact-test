@@ -15,7 +15,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register','list','getCities','getWeather','logout','refresh']]);
+        $this->middleware('auth:api', ['except' => ['login','register','list','getCities','getWeather','logout','refresh','getWeatherMap']]);
     }
 
     public function login(Request $request)
@@ -98,7 +98,7 @@ class AuthController extends Controller
             ]
         ]);
     }
-    
+
     public function getWeather(Request $request)
     {
 
@@ -129,7 +129,35 @@ class AuthController extends Controller
 
        
 
-    }           
+    }  
+
+    public function getWeatherMap(Request $request)
+    {
+
+        $input = $request->all();
+
+        $json ="";
+        $country = $input['country'];
+        try{
+            
+            $url='http://api.weatherapi.com/v1/current.json?key=377efb99cfd94b44a0b121421220810&q='.$country.'&aqi=no';
+            $json    = file_get_contents( $url );
+            $json    = json_decode($json);
+
+         } catch (Exception $e) {
+
+            return response()->json([
+
+                'status'  => 'Failed',
+                'data'    => null,
+                'message' => 'Failed to load the weather of the location: '.$city,   
+            ]);
+        }; 
+        return response()->json([
+            'status' => 'success',
+            'data' => $json
+        ]);
+    }                 
         
 
 

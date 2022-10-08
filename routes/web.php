@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $list=country_list();
-    return view('home',compact('list'));
+    $list=county_list();
+    $listCountry=getCountry();
+    return view('home',compact(['list','listCountry']));
 });
 
 Auth::routes();
@@ -23,3 +24,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/get-cities', [App\Http\Controllers\HomeController::class, 'getCities']);
 Route::post('/get-weather', [App\Http\Controllers\HomeController::class, 'getWeather']);
+Route::post('/get-weather-all', [App\Http\Controllers\HomeController::class, 'getWeatherAll']);

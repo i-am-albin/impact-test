@@ -23,5 +23,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('list', 'list');
     Route::post('get-cities', 'getCities');
     Route::post('get-weather', 'getWeather');
+    Route::post('get-weather-map', 'getWeatherMap');
+
 
 });
